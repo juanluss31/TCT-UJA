@@ -1,0 +1,359 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>p2</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-12-15"><meta name="DC.source" content="p2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</a></li><li><a href="#3">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</a></li></ul></div><pre class="codeinput"><span class="comment">% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="comment">%                    PRACTICA 2 TCT (PRIMERA PARTE)</span>
+<span class="comment">% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+clc; clear <span class="string">all</span>; close <span class="string">all</span>;
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+<span class="comment">% Se&ntilde;al aleatoria con distribucion uniforme</span>
+N=100; <span class="comment">% Numero de muestras</span>
+x=rand(1,N); <span class="comment">% Se&ntilde;al aleatoria Desde 1 hasta N</span>
+
+<span class="comment">% Calculo de la DFT,IDFT con las funciones implementadas</span>
+[X_TCT,Xabs_TCT,Xang_TCT]=DFT_TCT(x); <span class="comment">%DFT</span>
+[x_TCT]=IDFT_TCT(X_TCT);                <span class="comment">%IDFT</span>
+
+<span class="comment">% Calculo de la DFT,IDFT con las funciones fft/ifft</span>
+[X_FFT]=fft(x);                         <span class="comment">%DFT</span>
+[x_FFT]=ifft(X_FFT);                    <span class="comment">%IDFT</span>
+
+<span class="comment">% Representacion de ambos pares de transformadas ( stem Gr&aacute;ficas de datos discretos )</span>
+subplot(211);stem(Xabs_TCT,<span class="string">'ob'</span>);hold <span class="string">on</span>;stem(abs(X_FFT),<span class="string">'xr'</span>);
+ylabel(<span class="string">'Modulo'</span>);xlabel(<span class="string">'Indice k'</span>);legend(<span class="string">'TCT'</span>,<span class="string">'FFT'</span>);
+subplot(212);stem(Xang_TCT,<span class="string">'ob'</span>);hold <span class="string">on</span>;stem(angle(X_FFT),<span class="string">'xr'</span>);
+ylabel(<span class="string">'Fase (radianes)'</span>);xlabel(<span class="string">'Indice k'</span>);legend(<span class="string">'TCT'</span>,<span class="string">'FFT'</span>);
+
+<span class="comment">% Conclusion:</span>
+<span class="comment">% Se puede comprobar como la funciona DFT_TCT y IDFT_TCT que se han</span>
+<span class="comment">% implementado son correctas ya que los resultados son iguales a</span>
+<span class="comment">% los comandos fft y ifft de MATLAB</span>
+</pre><img vspace="5" hspace="5" src="p2_01.png" alt=""> <h2 id="2">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</h2><pre>                  PRACTICA 2 TCT (SEGUNDA PARTE)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</pre><pre class="codeinput"><span class="comment">% Se&ntilde;ales sobre las que realizar la convolucion</span>
+a=rand(1,1000);
+b=rand(1,200);
+
+<span class="comment">% CONCOLUCION LINEAL (Longitud = La + Lb -1)</span>
+cl_matlab=conv(a,b);             <span class="comment">% MATLAB</span>
+cl_tct=CONVLIN_TCT(a,b);         <span class="comment">% CONVLIN_TCT</span>
+
+<span class="comment">% CONVOLUCION CIRCULAR(Longitud = max(La,Lb))</span>
+cc_matlab=cconv(a,b,max(length(a),length(b)));      <span class="comment">% MATLAB</span>
+cc_tct=CONVCIR_TCT(a,b);                            <span class="comment">% CONVCIR_TCT</span>
+
+<span class="comment">%Representaciones</span>
+subplot(411);stem(abs(cl_tct),<span class="string">'ob'</span>);hold <span class="string">on</span>;stem(abs(cl_matlab),<span class="string">'xr'</span>);legend(<span class="string">'TCT'</span>,<span class="string">'CONV'</span>);
+subplot(412);stem(angle(cl_tct),<span class="string">'ob'</span>);hold <span class="string">on</span>;stem(angle(cl_matlab),<span class="string">'xr'</span>);legend(<span class="string">'TCT'</span>,<span class="string">'CONV'</span>);
+subplot(413);stem(abs(cc_tct),<span class="string">'ob'</span>);hold <span class="string">on</span>;stem(abs(cc_matlab),<span class="string">'xr'</span>);legend(<span class="string">'TCT'</span>,<span class="string">'CCONV'</span>);
+subplot(414);stem(angle(cc_tct),<span class="string">'ob'</span>);hold <span class="string">on</span>;stem(angle(cc_matlab),<span class="string">'xr'</span>);legend(<span class="string">'TCT'</span>,<span class="string">'CCONV'</span>);
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Conclusiones:</span>
+<span class="comment">%i)La longitud de los vectores cl_matlab y cl_tct de la convolucion lineal</span>
+<span class="comment">%  debe ser igual a N=L+P-1. Deben coincidir ya que el comando conv de MATLAB</span>
+<span class="comment">%  proporciona la convolucion lineal y el alumno debe implementar la convolucion</span>
+<span class="comment">%  lineal mediante DFT, luego internamente se debe calcular una longitud N=L+P-1 para que</span>
+<span class="comment">%  la convolucion circular (de la DFT) coincida con la convolucion lineal.</span>
+<span class="comment">%ii) La longitud de las vectores cc_matlab y cc_tct de la convolucion circular</span>
+<span class="comment">%    debe ser igual al maximo numero de muestras teniendo en cuenta los dos</span>
+<span class="comment">%    vectores de entrada. Deben coincidir ya que el comando cconv de MATLAB</span>
+<span class="comment">%    proporciona la convolucion circular</span>
+<span class="comment">%iii) Se ha comprobado el correcto funcionamiento de la convolucion lineal</span>
+<span class="comment">%     (CONVLIN_TCT) y circular (CONVCIR_TCT) implementada, ya que proporciona</span>
+<span class="comment">%     los mismos valores que las funciones de MATLAB (conv y cconv).</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="p2_02.png" alt=""> <h2 id="3">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</h2><pre>                  PRACTICA 2 TCT (TERCERA PARTE)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</pre><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Se&ntilde;ial de audio (Duracion: 8.02 sec)</span>
+[x fs]=audioread(<span class="string">'Scarecrow.wav'</span>);
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Cargar respuesta impulsiva h[n] del filtro paso banda (300-3500Hz)</span>
+load(<span class="string">'h.mat'</span>);
+<span class="comment">% Obtener la respuesta en frecuencia H[k]</span>
+H=fftshift(fft(h,10*length(h)));
+ff=-fs/2:fs/(length(H)-1):fs/2;
+plot(ff,abs(H));xlabel(<span class="string">'Frecuencia (Hz)'</span>);ylabel(<span class="string">'Magnitud'</span>);
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% CONVOLUCION POR BLOQUES (Metodo OVERLAP-ADD vs OVERLAP-SAVE)</span>
+<span class="comment">% Tamano de los bloques</span>
+T=max(nextpow2(512),nextpow2(2*length(h)));
+L=2^T;
+<span class="comment">% METODO OVERLAP-ADD utilizando CONVLIN_TCT</span>
+t=clock;                   <span class="comment">% Inicio contador de tiempo</span>
+[y1]=OVERLAPADD_TCT(x,h,L);
+y1=y1(1:length(x));
+Time_end=etime(clock,t);   <span class="comment">% Final contador de tiempo</span>
+disp([<span class="string">'Entrada: '</span> num2str(length(x)/fs) <span class="string">' sec.   Tiempo de overlap-add: '</span> num2str(Time_end) <span class="string">' sec.'</span>]);
+
+<span class="comment">% METODO OVERLAP-SAVE utilizando CONVCIR_TCT</span>
+t=clock;                   <span class="comment">% Inicio contador de tiempo</span>
+[y2]=OVERLAPSAVE_TCT(x,h,L);
+Time_end=etime(clock,t);   <span class="comment">% Final contador de tiempo</span>
+disp([<span class="string">'Entrada: '</span> num2str(length(x)/fs) <span class="string">' sec.   Tiempo de overlap-save: '</span> num2str(Time_end) <span class="string">' sec.'</span>]);
+
+<span class="comment">% METODO FILTRADO MATLAB</span>
+t=clock;                   <span class="comment">% Inicio contador de tiempo</span>
+c=conv(x,h);
+c=c(1:length(x));
+Time_end=etime(clock,t);   <span class="comment">% Final contador de tiempo</span>
+disp([<span class="string">'Entrada: '</span> num2str(length(x)/fs) <span class="string">' sec.   Tiempo de conv(MATLAB): '</span> num2str(Time_end) <span class="string">' sec.'</span>]);
+
+<span class="comment">% REPRESENTACIONES</span>
+figure;stem((1:length(x))/fs,y1,<span class="string">'ob'</span>);hold <span class="string">on</span>;   <span class="comment">% OVERLAP-ADD</span>
+stem((1:length(x))/fs,y2,<span class="string">'xr'</span>);hold <span class="string">on</span>;          <span class="comment">% OVERLAP-SAVE</span>
+stem((1:length(x))/fs,c,<span class="string">'^g'</span>);                   <span class="comment">% MATLAB</span>
+ylabel(<span class="string">'Amplitude'</span>);xlabel(<span class="string">'Tiempo (s)'</span>);legend(<span class="string">'Overlapadd'</span>,<span class="string">'Overlapsave'</span>,<span class="string">'CONV MATLAB'</span>);
+
+<span class="comment">% GRABACION CON DIFERENTES METODOS</span>
+audiowrite(<span class="string">'Scarecrow_Overlapadd.wav'</span>,y1,fs);
+audiowrite(<span class="string">'Scarecrow_Overlapsave.wav'</span>,y2,fs);
+audiowrite(<span class="string">'Scarecrow_conv_MATLAB.wav'</span>,c,fs);
+
+<span class="comment">% Conclusiones:</span>
+<span class="comment">% i) Se ha comprobado el correcto funcionamiento del metodo overlap-add y</span>
+<span class="comment">%    overlap-save ya que proporciona los mismos valores que la funcion conv</span>
+<span class="comment">%    de MATLAB al introducirle el vector de audio completo.</span>
+
+<span class="comment">% ii) Las diferencias entre entrada y salida es que la senal de salida esta</span>
+<span class="comment">%     filtrada por el filtro paso banda, luego se han eliminado los sonidos</span>
+<span class="comment">%     graves de baja frecuencias y todos los sonidos de alta frecuencia,</span>
+<span class="comment">%     incluido el ruido por encima de los 4KHz aprox.</span>
+
+<span class="comment">% iii) EFICIENCIA COMPUTACIONAL: el metodo overlapsave es mas eficiente</span>
+<span class="comment">%      computacionalmente que el metodo overlap-add ya que utiliza convoluciones</span>
+<span class="comment">%      con menos puntos ya que las DFT son de L puntos (convoluciones circulares)</span>
+<span class="comment">%      en lugar de N=L+P-1 puntos (convoluciones lineales) tal como lo utilizan</span>
+<span class="comment">%      el metodo overlapadd. Es decir, overlapadd suma vectores de convoluciones</span>
+<span class="comment">%      de tamano N mientras que overlap-save yuxtapone vectores de tamano L-(P-1)</span>
+<span class="comment">%      muestras.</span>
+</pre><pre class="codeoutput">Entrada: 8.0225 sec.   Tiempo de overlap-add: 270.372 sec.
+Entrada: 8.0225 sec.   Tiempo de overlap-save: 226.895 sec.
+Entrada: 8.0225 sec.   Tiempo de conv(MATLAB): 0.008 sec.
+Warning: Data clipped when writing file. 
+Warning: Data clipped when writing file. 
+Warning: Data clipped when writing file. 
+</pre><img vspace="5" hspace="5" src="p2_03.png" alt=""> <img vspace="5" hspace="5" src="p2_04.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%                    PRACTICA 2 TCT (PRIMERA PARTE)
+% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+clc; clear all; close all;
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+% Señal aleatoria con distribucion uniforme
+N=100; % Numero de muestras 
+x=rand(1,N); % Señal aleatoria Desde 1 hasta N 
+
+% Calculo de la DFT,IDFT con las funciones implementadas
+[X_TCT,Xabs_TCT,Xang_TCT]=DFT_TCT(x); %DFT
+[x_TCT]=IDFT_TCT(X_TCT);                %IDFT
+
+% Calculo de la DFT,IDFT con las funciones fft/ifft
+[X_FFT]=fft(x);                         %DFT
+[x_FFT]=ifft(X_FFT);                    %IDFT
+
+% Representacion de ambos pares de transformadas ( stem Gráficas de datos discretos )
+subplot(211);stem(Xabs_TCT,'ob');hold on;stem(abs(X_FFT),'xr');
+ylabel('Modulo');xlabel('Indice k');legend('TCT','FFT');
+subplot(212);stem(Xang_TCT,'ob');hold on;stem(angle(X_FFT),'xr');
+ylabel('Fase (radianes)');xlabel('Indice k');legend('TCT','FFT');
+
+% Conclusion:
+% Se puede comprobar como la funciona DFT_TCT y IDFT_TCT que se han 
+% implementado son correctas ya que los resultados son iguales a 
+% los comandos fft y ifft de MATLAB 
+
+
+%% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%                    PRACTICA 2 TCT (SEGUNDA PARTE)
+% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% Señales sobre las que realizar la convolucion
+a=rand(1,1000);
+b=rand(1,200);
+
+% CONCOLUCION LINEAL (Longitud = La + Lb -1)
+cl_matlab=conv(a,b);             % MATLAB
+cl_tct=CONVLIN_TCT(a,b);         % CONVLIN_TCT
+
+% CONVOLUCION CIRCULAR(Longitud = max(La,Lb))
+cc_matlab=cconv(a,b,max(length(a),length(b)));      % MATLAB
+cc_tct=CONVCIR_TCT(a,b);                            % CONVCIR_TCT
+
+%Representaciones
+subplot(411);stem(abs(cl_tct),'ob');hold on;stem(abs(cl_matlab),'xr');legend('TCT','CONV');
+subplot(412);stem(angle(cl_tct),'ob');hold on;stem(angle(cl_matlab),'xr');legend('TCT','CONV');
+subplot(413);stem(abs(cc_tct),'ob');hold on;stem(abs(cc_matlab),'xr');legend('TCT','CCONV');
+subplot(414);stem(angle(cc_tct),'ob');hold on;stem(angle(cc_matlab),'xr');legend('TCT','CCONV');
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Conclusiones:
+%i)La longitud de los vectores cl_matlab y cl_tct de la convolucion lineal 
+%  debe ser igual a N=L+P-1. Deben coincidir ya que el comando conv de MATLAB 
+%  proporciona la convolucion lineal y el alumno debe implementar la convolucion 
+%  lineal mediante DFT, luego internamente se debe calcular una longitud N=L+P-1 para que 
+%  la convolucion circular (de la DFT) coincida con la convolucion lineal.
+%ii) La longitud de las vectores cc_matlab y cc_tct de la convolucion circular 
+%    debe ser igual al maximo numero de muestras teniendo en cuenta los dos 
+%    vectores de entrada. Deben coincidir ya que el comando cconv de MATLAB 
+%    proporciona la convolucion circular 
+%iii) Se ha comprobado el correcto funcionamiento de la convolucion lineal 
+%     (CONVLIN_TCT) y circular (CONVCIR_TCT) implementada, ya que proporciona 
+%     los mismos valores que las funciones de MATLAB (conv y cconv). 
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+
+%% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%                    PRACTICA 2 TCT (TERCERA PARTE)
+% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Señial de audio (Duracion: 8.02 sec)
+[x fs]=audioread('Scarecrow.wav');
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Cargar respuesta impulsiva h[n] del filtro paso banda (300-3500Hz)
+load('h.mat'); 
+% Obtener la respuesta en frecuencia H[k]
+H=fftshift(fft(h,10*length(h))); 
+ff=-fs/2:fs/(length(H)-1):fs/2;
+plot(ff,abs(H));xlabel('Frecuencia (Hz)');ylabel('Magnitud');
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% CONVOLUCION POR BLOQUES (Metodo OVERLAP-ADD vs OVERLAP-SAVE)
+% Tamano de los bloques
+T=max(nextpow2(512),nextpow2(2*length(h))); 
+L=2^T;
+% METODO OVERLAP-ADD utilizando CONVLIN_TCT
+t=clock;                   % Inicio contador de tiempo
+[y1]=OVERLAPADD_TCT(x,h,L); 
+y1=y1(1:length(x));
+Time_end=etime(clock,t);   % Final contador de tiempo
+disp(['Entrada: ' num2str(length(x)/fs) ' sec.   Tiempo de overlap-add: ' num2str(Time_end) ' sec.']);
+
+% METODO OVERLAP-SAVE utilizando CONVCIR_TCT
+t=clock;                   % Inicio contador de tiempo
+[y2]=OVERLAPSAVE_TCT(x,h,L);
+Time_end=etime(clock,t);   % Final contador de tiempo
+disp(['Entrada: ' num2str(length(x)/fs) ' sec.   Tiempo de overlap-save: ' num2str(Time_end) ' sec.']);
+
+% METODO FILTRADO MATLAB
+t=clock;                   % Inicio contador de tiempo
+c=conv(x,h); 
+c=c(1:length(x));
+Time_end=etime(clock,t);   % Final contador de tiempo
+disp(['Entrada: ' num2str(length(x)/fs) ' sec.   Tiempo de conv(MATLAB): ' num2str(Time_end) ' sec.']);
+
+% REPRESENTACIONES
+figure;stem((1:length(x))/fs,y1,'ob');hold on;   % OVERLAP-ADD
+stem((1:length(x))/fs,y2,'xr');hold on;          % OVERLAP-SAVE
+stem((1:length(x))/fs,c,'^g');                   % MATLAB
+ylabel('Amplitude');xlabel('Tiempo (s)');legend('Overlapadd','Overlapsave','CONV MATLAB');
+
+% GRABACION CON DIFERENTES METODOS
+audiowrite('Scarecrow_Overlapadd.wav',y1,fs);
+audiowrite('Scarecrow_Overlapsave.wav',y2,fs);
+audiowrite('Scarecrow_conv_MATLAB.wav',c,fs);
+
+% Conclusiones:
+% i) Se ha comprobado el correcto funcionamiento del metodo overlap-add y 
+%    overlap-save ya que proporciona los mismos valores que la funcion conv 
+%    de MATLAB al introducirle el vector de audio completo. 
+
+% ii) Las diferencias entre entrada y salida es que la senal de salida esta
+%     filtrada por el filtro paso banda, luego se han eliminado los sonidos 
+%     graves de baja frecuencias y todos los sonidos de alta frecuencia, 
+%     incluido el ruido por encima de los 4KHz aprox. 
+
+% iii) EFICIENCIA COMPUTACIONAL: el metodo overlapsave es mas eficiente 
+%      computacionalmente que el metodo overlap-add ya que utiliza convoluciones 
+%      con menos puntos ya que las DFT son de L puntos (convoluciones circulares)
+%      en lugar de N=L+P-1 puntos (convoluciones lineales) tal como lo utilizan 
+%      el metodo overlapadd. Es decir, overlapadd suma vectores de convoluciones 
+%      de tamano N mientras que overlap-save yuxtapone vectores de tamano L-(P-1) 
+%      muestras.
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
