@@ -1,0 +1,676 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>p3</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-12-15"><meta name="DC.source" content="p3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Apartado A)</a></li><li><a href="#3">Apartado B)</a></li><li><a href="#4">Apartado B)  (i-Dominio del tiempo)</a></li><li><a href="#5">Apartado B)  (ii-Dominio de la frecuencia)</a></li><li><a href="#6">Apartado C)</a></li><li><a href="#7">C.i) L=1024,fs=16000,f0=100,f1=110,Af=fs/L=15.62Hz,Hamming</a></li><li><a href="#8">C.ii) L=512,fs=16000,f0=100,f1=110,Af=fs/L=31.25Hz,Hamming</a></li><li><a href="#9">C.iii) L=2048,fs=16000,f0=100,f1=110,Af=fs/L=7.81Hz,Hamming</a></li><li><a href="#10">C.iv) L=2048,fs=16000,f0=100,f1=110,Af=fs/L=7.81Hz,Hamming</a></li><li><a href="#11">C.v) L=2048,fs=16000,f0=100,f1=?,Af=fs/L=7.81Hz,Hamming</a></li></ul></div><pre class="codeinput"><span class="comment">%**************************************************************************</span>
+<span class="comment">%</span>
+<span class="comment">%          PRACTICA 3 (Tema 3): Aplciaciones de la Transformada Discreta de</span>
+<span class="comment">%                               Fourier.</span>
+<span class="comment">%</span>
+<span class="comment">%          Objetivo: Efectos del enventanado y muestreo de la DFT.</span>
+<span class="comment">%</span>
+<span class="comment">%          Tipos de ventanas:</span>
+<span class="comment">%                   - Rectangular</span>
+<span class="comment">%                   - Hamming</span>
+<span class="comment">%                   - Hanning</span>
+<span class="comment">%                   - Blackman</span>
+<span class="comment">%</span>
+<span class="comment">%**************************************************************************</span>
+</pre><h2 id="2">Apartado A)</h2><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%        NOTA MIDI                    FRECUENCIA (Hz)</span>
+<span class="comment">%           36                            65.406</span>
+<span class="comment">%           39                            77.781</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Objetivo: representar las notas musicales proporcionadas en el dominio de</span>
+<span class="comment">% la frecuencia (BASS36, BASS39 y BASS3639)</span>
+<span class="comment">%--&gt; Cargar las se&ntilde;ales sonoras (audioread)</span>
+[x36 fs]=audioread(<span class="string">'BASS36.wav'</span>);
+[x39 fs]=audioread(<span class="string">'BASS39.wav'</span>);
+[x3639 fs]=audioread(<span class="string">'BASS3639.wav'</span>);
+<span class="comment">%--&gt; Se&ntilde;ales en el dominio de la frecuencia (NFFT=4*(longitud de la se&ntilde;al))</span>
+N=4*length(x36);
+X36=fft(x36,N)/fs;
+X39=fft(x39,N)/fs;
+X3639=fft(x3639,N)/fs;
+<span class="comment">% Eje De frecuencias: [-fs/2,Interpolacion:fs/2]</span>
+Interpolacion = fs/(N); <span class="comment">% Hz</span>
+f=-fs/2:fs/(length(X36)-1):fs/2;
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%                    Representaciones</span>
+figure;
+subplot(311);
+plot(f,abs(fftshift(X36)));
+title(<span class="string">'BASS36'</span>);xlabel(<span class="string">'Frecuencia(Hz)'</span>);ylabel(<span class="string">'Magnitud'</span>);xlim([0 ,500]);
+subplot(312);
+plot(f,abs(fftshift(X39)));
+title(<span class="string">'BASS39'</span>);xlabel(<span class="string">'Frecuencia(Hz)'</span>);ylabel(<span class="string">'Magnitud'</span>);xlim([0 ,500]);
+subplot(313);
+plot(f,abs(fftshift(X3639)));
+title(<span class="string">'BASS39'</span>);xlabel(<span class="string">'Frecuencia(Hz)'</span>);ylabel(<span class="string">'Magnitud'</span>);xlim([0 ,500]);
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%                    CONCLUSIONES</span>
+<span class="comment">% Aplicabilidad: las notas musicales se componen de la frecuencia</span>
+<span class="comment">% fundamental y la suma de sus correspondientes armonicos.</span>
+<span class="comment">% Frecuencia fundamental: f0</span>
+<span class="comment">% Armonicos: k*f0 (k numeros enteros)</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="p3_01.png" alt=""> <h2 id="3">Apartado B)</h2><p>Objetivo: Analizar el efecto del enventanado con diferentes ventanas. Para cada ventana analizar:  - Ancho de banda del lobulo principal (ALP).  - Interferencia de los lobulos secudnarios (NLS). Datos de entrada: - Frecuencia de muestreo (fs) = 16000 Hz:</p><pre class="codeinput">fs=16000;
+<span class="comment">% - Longitud vector de tiempos (N&ordm; de muestras)</span>
+L= 1024;
+t=(0:L-1)/fs;
+<span class="comment">% - Sinusoide a f0=100 Hz: x[n]=cos(2*pi*f0*t)</span>
+f0=100;
+x0=cos(2*pi*f0*t');
+<span class="comment">% Tipos de ventanas:</span>
+wrect=ones(L,1);               <span class="comment">% Rectangular</span>
+whamming=hamming(L);           <span class="comment">% Hamming</span>
+whanning=hann(L);              <span class="comment">% Hanning</span>
+wblackman=blackman(L);         <span class="comment">% Blackman</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><h2 id="4">Apartado B)  (i-Dominio del tiempo)</h2><p>Eventanada</p><pre class="codeinput">x0w_rec=x0.*wrect;             <span class="comment">% Rectangular</span>
+x0w_hamming=x0.*whamming;      <span class="comment">% Hamming</span>
+x0w_hanning=x0.*whanning;      <span class="comment">% Hanning</span>
+x0w_blackman=x0.*wblackman;    <span class="comment">% Blackman</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%                   Representaciones</span>
+<span class="comment">% 1) Se&ntilde;al y tipos de ventanas</span>
+figure;
+subplot(211);
+plot((1:length(x0))/fs,x0);
+title(<span class="string">'Se&ntilde;al entrada'</span>);xlabel(<span class="string">'Tiempo (s)'</span>);ylabel(<span class="string">'Amplitud'</span>);
+
+subplot(212);
+hold <span class="string">on</span>;
+plot((1:length(x0))/fs,wrect,<span class="string">'b'</span>);          <span class="comment">% Rectangular</span>
+plot((1:length(x0))/fs,whamming,<span class="string">'r'</span>)        <span class="comment">% Hamming</span>
+plot((1:length(x0))/fs,whanning,<span class="string">'g'</span>)        <span class="comment">% Hanning</span>
+plot((1:length(x0))/fs,wblackman,<span class="string">'k'</span>)       <span class="comment">% Blackman</span>
+title(<span class="string">'Tipos de ventanas'</span>);xlabel(<span class="string">'Tiempo (s)'</span>);ylabel(<span class="string">'Amplitud'</span>);
+legend(<span class="string">'Rectangular'</span>,<span class="string">'Hamming'</span>,<span class="string">'Hanning'</span>,<span class="string">'Blackman'</span>);
+
+<span class="comment">% 2) Se&ntilde;al enventanada (diferentes ventanas)</span>
+figure;
+subplot(411);
+plot((1:length(x0))/fs,x0);
+hold <span class="string">on</span>;
+plot((1:length(x0w_rec))/fs,x0w_rec,<span class="string">'--r'</span>); <span class="comment">% Rectangular</span>
+title(<span class="string">'Enventado rectangular'</span>);xlabel(<span class="string">'Time (s)'</span>);ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original'</span>,<span class="string">'Enventanada'</span>);
+
+subplot(412);
+plot((1:length(x0))/fs,x0); <span class="comment">% Se&ntilde;al original (coseno)</span>
+hold <span class="string">on</span>;
+plot((1:length(x0))/fs,x0w_hamming,<span class="string">'--r'</span>);<span class="comment">% Hamming</span>
+title(<span class="string">'Enventado Hamming'</span>);xlabel(<span class="string">'Time (s)'</span>);ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original'</span>,<span class="string">'Enventanada'</span>);
+
+subplot(413);
+plot((1:length(x0))/fs,x0); <span class="comment">% Se&ntilde;al original (coseno)</span>
+hold <span class="string">on</span>;
+plot((1:length(x0))/fs,x0w_hanning,<span class="string">'--r'</span>); <span class="comment">% Hanning</span>
+title(<span class="string">'Enventado Hanning'</span>);xlabel(<span class="string">'Time (s)'</span>);ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original'</span>,<span class="string">'Enventanada'</span>);
+
+subplot(414);
+plot((1:length(x0))/fs,x0); <span class="comment">% Se&ntilde;al original (coseno)</span>
+hold <span class="string">on</span>;
+plot((1:length(x0))/fs,x0w_blackman,<span class="string">'--r'</span>); <span class="comment">% Blackman</span>
+title(<span class="string">'Enventado Blackman'</span>);xlabel(<span class="string">'Time (s)'</span>);ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'Original'</span>,<span class="string">'Enventanada'</span>);
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="p3_02.png" alt=""> <img vspace="5" hspace="5" src="p3_03.png" alt=""> <h2 id="5">Apartado B)  (ii-Dominio de la frecuencia)</h2><p>Se&ntilde;al enventanada dominio de la frecuencia (NFFT=16*L)</p><pre class="codeinput">X0w_rec=fftshift(abs(fft(x0w_rec,16*L)));           <span class="comment">% Rectangular</span>
+X0w_hamming=fftshift(abs(fft(x0w_hamming,16*L)));   <span class="comment">% Hamming</span>
+X0w_hanning=fftshift(abs(fft(x0w_hanning,16*L)));   <span class="comment">% Hanning</span>
+X0w_blackman=fftshift(abs(fft(x0w_blackman,16*L))); <span class="comment">% blackman</span>
+<span class="comment">% Eje en frecuencia</span>
+f=-fs/2:fs/(length(X0w_rec)-1):fs/2;
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%                   Representaciones</span>
+figure;
+plot(f,20*log10(X0w_rec/max(X0w_rec)),<span class="string">'b'</span>);xlim([0 ,500]);
+hold <span class="string">on</span>;
+plot(f,20*log10(X0w_hamming/max(X0w_hamming)),<span class="string">'r'</span>);xlim([0 ,500]);
+plot(f,20*log10(X0w_hanning/max(X0w_hanning)),<span class="string">'g'</span>);xlim([0 ,500]);
+plot(f,20*log10(X0w_blackman/max(X0w_blackman)),<span class="string">'k'</span>);xlim([0 ,500]);
+title(<span class="string">'Enventanado FFT'</span>);xlabel(<span class="string">'Frequencia (Hz)'</span>);ylabel(<span class="string">'Magnitud (dB)'</span>);
+legend(<span class="string">'Rectangular'</span>,<span class="string">'Hamming'</span>,<span class="string">'Hanning'</span>,<span class="string">'Blackman'</span>);
+grid <span class="string">on</span>; <span class="comment">% Grid es para a&ntilde;adir cuadriculas al grafico</span>
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%                    CONCLUSIONES</span>
+<span class="comment">% 1) La TF de todas las ventanas se ha desplazado a la frecuencia fundamental</span>
+<span class="comment">%    de la se&ntilde;al coseno definida (f0=100Hz).</span>
+<span class="comment">% 2) La ventana rectangular consigue el menor ancho del lobulo principal</span>
+<span class="comment">%    ALP=(2*fs/L)=31.25Hz a cambio de la mayor interferencia de lobulos</span>
+<span class="comment">%    laterales NLS=-13dB respecto de su maximo normalizado 0dB.</span>
+<span class="comment">% 3) La ventana de hamming y hanning producen un mayor ancho del lobulo</span>
+<span class="comment">%    principal ALP=(4*fs/L)=62.5Hz (menor resolucion) a cambio de menor</span>
+<span class="comment">%    interferencia debido a los lobulos secundarios en comparacion con la</span>
+<span class="comment">%    ventana rectangular.</span>
+<span class="comment">%    Especificamente, los lobulos laterales de hanning desaparecen antes que</span>
+<span class="comment">%    los de hamming debido a que la ventana de hanning es mas suave en el</span>
+<span class="comment">%    dominio temporal. Sin embargo, el primer lobulo de hamming NLS=-42dB</span>
+<span class="comment">%    es menor que el 1er lobulo de hanning NLS=-32dB respecto del maximo</span>
+<span class="comment">%    0dB.</span>
+<span class="comment">% 4) La ventana de Blackman presenta el mayor ancho de banda del lobulo</span>
+<span class="comment">%    principal ALP=6*fs/L=93.75Hz a cambio de la menor interferencias de los</span>
+<span class="comment">%    lobulos secundarios NLS=-57dB y mayor velocidad de desaparicion de</span>
+<span class="comment">%    dichos lobulos comparando la banda espectral definida.</span>
+<span class="comment">% 5) CASO IDEAL: ALP muy peque&ntilde;a (simular una delta) e NLS minima.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="p3_04.png" alt=""> <h2 id="6">Apartado C)</h2><p>Objetivo: Asuma una resolucion del sistema fs/L ya que se permite           solapamiento entre lobulos principales y comprobar en que casos           se sigue detectando claramente dos tonos de igual amplitud y           distinta frecuencia.</p><h2 id="7">C.i) L=1024,fs=16000,f0=100,f1=110,Af=fs/L=15.62Hz,Hamming</h2><pre class="codeinput">L=1024;
+fs=16000;
+t=(0:L-1)/fs;
+f0=100; f1=110;
+x3= cos(2*pi*f0*t')+cos(2*pi*f1*t');
+whamming=hamming(L);
+x3w=x3.*whamming;
+X3w=fft(x3w,4*L);
+<span class="comment">% vector de frecuencia</span>
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+figure;
+subplot(311);
+plot(f,fftshift(abs(X3w)));xlim([70 ,140]);
+title(<span class="string">'Suma de sinusoides 100,110Hz L=1024'</span>);xlabel(<span class="string">'Frequency (Hz)'</span>);ylabel(<span class="string">'Magnitud'</span>);
+<span class="comment">% Respuesta: No se pueden detectar los dos picos espectrales (f0=100 y</span>
+<span class="comment">% f1=110) ya que no existe suficiente resolucion Af=fs/L=15.62Hz. La</span>
+<span class="comment">% separacion de los dos picos es 110-100=10 Hz mientras que la resolucion</span>
+<span class="comment">% es de 15.6 Hz.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="p3_05.png" alt=""> <h2 id="8">C.ii) L=512,fs=16000,f0=100,f1=110,Af=fs/L=31.25Hz,Hamming</h2><pre class="codeinput">L=512;
+fs=16000;
+t=(0:L-1)/fs;
+f0=100; f1=110;
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t');
+whamming=hamming(L);
+x3w=x3.*whamming;
+X3w=fft(x3w,4*L);
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+subplot(312);
+plot(f,fftshift(abs(X3w)));xlim([70 ,140]);
+title(<span class="string">'Suma de sinusoides 100,110Hz L=512'</span>);xlabel(<span class="string">'Frequency (Hz)'</span>);ylabel(<span class="string">'Magnitud'</span>);
+<span class="comment">% Respuesta: No se pueden detectar los dos picos espectrales (f0=100 y</span>
+<span class="comment">% f1=110) ya que no existe suficiente resolucion Af=fs/L=31.25Hz. La</span>
+<span class="comment">% separacion de los dos picos es 110-100=10 Hz mientras que la resolucion</span>
+<span class="comment">% es de 31.25.6 Hz.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="p3_06.png" alt=""> <h2 id="9">C.iii) L=2048,fs=16000,f0=100,f1=110,Af=fs/L=7.81Hz,Hamming</h2><pre class="codeinput">L=2048;
+fs=16000;
+t=(0:L-1)/fs;
+f0=100; f1=110;
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t');
+whamming=hamming(L);
+x3w=x3.*whamming;
+X3w=fft(x3w,4*L);
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+subplot(313);plot(f,fftshift(abs(X3w)));xlim([70 ,140]);
+title(<span class="string">'Suma de sinusoides 100,110Hz L=2048'</span>);xlabel(<span class="string">'Frequency (Hz)'</span>);ylabel(<span class="string">'Magnitud'</span>);
+<span class="comment">% Respuesta: Si se pueden detectar los dos picos espectrales (f0=100 y</span>
+<span class="comment">% f1=110) ya que existe suficiente resolucion Af=fs/L=7.81Hz. La</span>
+<span class="comment">% separacion de los dos picos es 110-100=10 Hz mientras que la resolucion</span>
+<span class="comment">% es de 7.81 Hz.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%                        CONCLUSION</span>
+<span class="comment">% Conclusion: Al aumentar el tama&ntilde;o de la ventana (L) disminuye la anchura</span>
+<span class="comment">% del lobulo principal y por lo tanto mejora la resolucion (se pueden</span>
+<span class="comment">% detectar picos mas proximos).</span>
+<span class="comment">% IMPORTANTE: Para detectar los dos picos espectrales debe ocurrir que la</span>
+<span class="comment">% resolucion debe ser menor que la separacion entre los picos espectrales.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="p3_07.png" alt=""> <h2 id="10">C.iv) L=2048,fs=16000,f0=100,f1=110,Af=fs/L=7.81Hz,Hamming</h2><p>Aumentar el tama&ntilde;o de la se&ntilde;al de entrada concatenando ceros (zero padding)</p><pre class="codeinput">L=2048;
+t=(0:L-1)/fs;
+f0=100; f1=110;
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t');
+whamming=hamming(L);
+x3w=x3.*whamming;
+x3w=[x3w; zeros(2*L,1)];     <span class="comment">% zero-padding (4096 ceros)</span>
+X3w=fft(x3w,4*length(x3w));
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+hold <span class="string">on</span>;
+plot(f,fftshift(abs(X3w)),<span class="string">'r'</span>);xlim([70 ,140]);
+title(<span class="string">'Suma de sinusoides L=2048 + zero padding (4096)'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);ylabel(<span class="string">'Magnitud'</span>);
+<span class="comment">% RESPUESTA: La nueva resolucion no ha variado del apartado anterior y sigue</span>
+<span class="comment">% siendo Af=fs/L=7.81Hz ya que la longitud de muestras de informacion de usuario</span>
+<span class="comment">% de x[n] sigue siendo la misma L=2048. Sin embargo, al anadir ceros se ha</span>
+<span class="comment">% realizado una mejor interpolacion entre las muestras en frecuencia, es decir,</span>
+<span class="comment">% se ha definido con mayor detalle los valores en frecuencia. Ahora la</span>
+<span class="comment">% separacion en muestras de frecuencia es Sep=fs/(3*L)=2.60 Hz.</span>
+<span class="comment">% Zero-padding permite obtener valores mas excatos de los picos en</span>
+<span class="comment">% frecuencia y de las amplitudes de los mismos.</span>
+<span class="comment">% IMPORTANTE: zero-padding NO AUMENTA LA RESOLUCION. La resolucion solo</span>
+<span class="comment">% depende del tipo y la longitud L de la ventana.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="p3_08.png" alt=""> <h2 id="11">C.v) L=2048,fs=16000,f0=100,f1=?,Af=fs/L=7.81Hz,Hamming</h2><p>Objetivo: modificar la frecuencia f1 manteniendo constante f0 para determinar aproximadamente la resolucion del sistema (Hz), como aquella separacion en frecuencia que permite distinguir dos picos (tonos).</p><pre class="codeinput"><span class="comment">%--&gt; Prueba 1: f1=108</span>
+L=2048;
+t=(0:L-1)/fs;
+f0=100; f1=108;
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t');
+whamming=hamming(L); x3w=x3.*whamming;
+X3w=fft(x3w,4*L);
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+figure;
+plot(f,fftshift(abs(X3w)),<span class="string">'b'</span>);
+
+<span class="comment">%--&gt; Prueba 2: f1=106</span>
+L=2048;
+t=(0:L-1)/fs;
+f0=100; f1=106;
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t');
+whamming=hamming(L); x3w=x3.*whamming;
+X3w=fft(x3w,4*L);
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+hold <span class="string">on</span>;
+plot(f,fftshift(abs(X3w)),<span class="string">'r'</span>);
+
+<span class="comment">%--&gt; Prueba 3: f1=105</span>
+L=2048;
+t=(0:L-1)/fs;
+f0=100; f1=105;
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t');
+whamming=hamming(L); x3w=x3.*whamming;
+X3w=fft(x3w,4*L);
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+hold <span class="string">on</span>;
+plot(f,fftshift(abs(X3w)),<span class="string">'g'</span>);xlim([70 ,140]);
+title(<span class="string">'Suma de sinusoides f0=100,f1=(108,106,105) y L=2048'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);ylabel(<span class="string">'Magnitud'</span>);
+legend(<span class="string">'f_1-f_0=8Hz'</span>,<span class="string">'f_1-f_0=6Hz'</span>,<span class="string">'f_1-f_0=5Hz'</span>);
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%                 CONCLUSION</span>
+<span class="comment">% La resolucion maxima del sistema es de 106Hz-100Hz=6Hz.</span>
+<span class="comment">% Minima separacion para detectar dos tonos.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="p3_09.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%**************************************************************************
+%
+%          PRACTICA 3 (Tema 3): Aplciaciones de la Transformada Discreta de
+%                               Fourier.
+%
+%          Objetivo: Efectos del enventanado y muestreo de la DFT.
+%
+%          Tipos de ventanas: 
+%                   - Rectangular
+%                   - Hamming
+%                   - Hanning
+%                   - Blackman
+%
+%**************************************************************************
+%%                        Apartado A)
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%        NOTA MIDI                    FRECUENCIA (Hz)
+%           36                            65.406
+%           39                            77.781
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Objetivo: representar las notas musicales proporcionadas en el dominio de 
+% la frecuencia (BASS36, BASS39 y BASS3639)
+%REPLACE_WITH_DASH_DASH> Cargar las señales sonoras (audioread)
+[x36 fs]=audioread('BASS36.wav'); 
+[x39 fs]=audioread('BASS39.wav'); 
+[x3639 fs]=audioread('BASS3639.wav'); 
+%REPLACE_WITH_DASH_DASH> Señales en el dominio de la frecuencia (NFFT=4*(longitud de la señal))
+N=4*length(x36);
+X36=fft(x36,N)/fs;
+X39=fft(x39,N)/fs;
+X3639=fft(x3639,N)/fs;
+% Eje De frecuencias: [-fs/2,Interpolacion:fs/2]
+Interpolacion = fs/(N); % Hz
+f=-fs/2:fs/(length(X36)-1):fs/2;
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%                    Representaciones 
+figure;
+subplot(311);
+plot(f,abs(fftshift(X36)));
+title('BASS36');xlabel('Frecuencia(Hz)');ylabel('Magnitud');xlim([0 ,500]);
+subplot(312);
+plot(f,abs(fftshift(X39)));
+title('BASS39');xlabel('Frecuencia(Hz)');ylabel('Magnitud');xlim([0 ,500]);
+subplot(313);
+plot(f,abs(fftshift(X3639)));
+title('BASS39');xlabel('Frecuencia(Hz)');ylabel('Magnitud');xlim([0 ,500]);
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%                    CONCLUSIONES
+% Aplicabilidad: las notas musicales se componen de la frecuencia
+% fundamental y la suma de sus correspondientes armonicos.
+% Frecuencia fundamental: f0
+% Armonicos: k*f0 (k numeros enteros)
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%                         Apartado B)  
+% Objetivo: Analizar el efecto del enventanado con diferentes ventanas. 
+% Para cada ventana analizar: 
+%  - Ancho de banda del lobulo principal (ALP).
+%  - Interferencia de los lobulos secudnarios (NLS).
+% Datos de entrada:
+% - Frecuencia de muestreo (fs) = 16000 Hz:
+fs=16000;
+% - Longitud vector de tiempos (Nº de muestras)
+L= 1024;
+t=(0:L-1)/fs; 
+% - Sinusoide a f0=100 Hz: x[n]=cos(2*pi*f0*t)
+f0=100; 
+x0=cos(2*pi*f0*t');
+% Tipos de ventanas:
+wrect=ones(L,1);               % Rectangular
+whamming=hamming(L);           % Hamming
+whanning=hann(L);              % Hanning
+wblackman=blackman(L);         % Blackman
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%               Apartado B)  (i-Dominio del tiempo)
+% Eventanada
+x0w_rec=x0.*wrect;             % Rectangular
+x0w_hamming=x0.*whamming;      % Hamming
+x0w_hanning=x0.*whanning;      % Hanning
+x0w_blackman=x0.*wblackman;    % Blackman
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%                   Representaciones 
+% 1) Señal y tipos de ventanas
+figure;
+subplot(211);
+plot((1:length(x0))/fs,x0);
+title('Señal entrada');xlabel('Tiempo (s)');ylabel('Amplitud');
+
+subplot(212);
+hold on;
+plot((1:length(x0))/fs,wrect,'b');          % Rectangular
+plot((1:length(x0))/fs,whamming,'r')        % Hamming
+plot((1:length(x0))/fs,whanning,'g')        % Hanning
+plot((1:length(x0))/fs,wblackman,'k')       % Blackman
+title('Tipos de ventanas');xlabel('Tiempo (s)');ylabel('Amplitud');
+legend('Rectangular','Hamming','Hanning','Blackman');
+
+% 2) Señal enventanada (diferentes ventanas)
+figure;
+subplot(411);
+plot((1:length(x0))/fs,x0); 
+hold on;  
+plot((1:length(x0w_rec))/fs,x0w_rec,'REPLACE_WITH_DASH_DASHr'); % Rectangular
+title('Enventado rectangular');xlabel('Time (s)');ylabel('Amplitude');
+legend('Original','Enventanada');
+
+subplot(412);
+plot((1:length(x0))/fs,x0); % Señal original (coseno)
+hold on;         
+plot((1:length(x0))/fs,x0w_hamming,'REPLACE_WITH_DASH_DASHr');% Hamming
+title('Enventado Hamming');xlabel('Time (s)');ylabel('Amplitude');
+legend('Original','Enventanada');
+
+subplot(413);
+plot((1:length(x0))/fs,x0); % Señal original (coseno)
+hold on;         
+plot((1:length(x0))/fs,x0w_hanning,'REPLACE_WITH_DASH_DASHr'); % Hanning
+title('Enventado Hanning');xlabel('Time (s)');ylabel('Amplitude');
+legend('Original','Enventanada');
+
+subplot(414);
+plot((1:length(x0))/fs,x0); % Señal original (coseno)
+hold on;         
+plot((1:length(x0))/fs,x0w_blackman,'REPLACE_WITH_DASH_DASHr'); % Blackman
+title('Enventado Blackman');xlabel('Time (s)');ylabel('Amplitude');
+legend('Original','Enventanada');
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%%              Apartado B)  (ii-Dominio de la frecuencia)
+% Señal enventanada dominio de la frecuencia (NFFT=16*L)
+
+X0w_rec=fftshift(abs(fft(x0w_rec,16*L)));           % Rectangular
+X0w_hamming=fftshift(abs(fft(x0w_hamming,16*L)));   % Hamming
+X0w_hanning=fftshift(abs(fft(x0w_hanning,16*L)));   % Hanning
+X0w_blackman=fftshift(abs(fft(x0w_blackman,16*L))); % blackman
+% Eje en frecuencia
+f=-fs/2:fs/(length(X0w_rec)-1):fs/2;
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%                   Representaciones
+figure;
+plot(f,20*log10(X0w_rec/max(X0w_rec)),'b');xlim([0 ,500]);
+hold on;
+plot(f,20*log10(X0w_hamming/max(X0w_hamming)),'r');xlim([0 ,500]);
+plot(f,20*log10(X0w_hanning/max(X0w_hanning)),'g');xlim([0 ,500]);
+plot(f,20*log10(X0w_blackman/max(X0w_blackman)),'k');xlim([0 ,500]);
+title('Enventanado FFT');xlabel('Frequencia (Hz)');ylabel('Magnitud (dB)');
+legend('Rectangular','Hamming','Hanning','Blackman');
+grid on; % Grid es para añadir cuadriculas al grafico
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%                    CONCLUSIONES
+% 1) La TF de todas las ventanas se ha desplazado a la frecuencia fundamental
+%    de la señal coseno definida (f0=100Hz). 
+% 2) La ventana rectangular consigue el menor ancho del lobulo principal 
+%    ALP=(2*fs/L)=31.25Hz a cambio de la mayor interferencia de lobulos 
+%    laterales NLS=-13dB respecto de su maximo normalizado 0dB.
+% 3) La ventana de hamming y hanning producen un mayor ancho del lobulo 
+%    principal ALP=(4*fs/L)=62.5Hz (menor resolucion) a cambio de menor 
+%    interferencia debido a los lobulos secundarios en comparacion con la 
+%    ventana rectangular.
+%    Especificamente, los lobulos laterales de hanning desaparecen antes que 
+%    los de hamming debido a que la ventana de hanning es mas suave en el 
+%    dominio temporal. Sin embargo, el primer lobulo de hamming NLS=-42dB 
+%    es menor que el 1er lobulo de hanning NLS=-32dB respecto del maximo
+%    0dB.
+% 4) La ventana de Blackman presenta el mayor ancho de banda del lobulo 
+%    principal ALP=6*fs/L=93.75Hz a cambio de la menor interferencias de los 
+%    lobulos secundarios NLS=-57dB y mayor velocidad de desaparicion de 
+%    dichos lobulos comparando la banda espectral definida.
+% 5) CASO IDEAL: ALP muy pequeña (simular una delta) e NLS minima.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%%                        Apartado C)  
+% Objetivo: Asuma una resolucion del sistema fs/L ya que se permite 
+%           solapamiento entre lobulos principales y comprobar en que casos
+%           se sigue detectando claramente dos tonos de igual amplitud y
+%           distinta frecuencia.
+
+%% C.i) L=1024,fs=16000,f0=100,f1=110,Af=fs/L=15.62Hz,Hamming
+L=1024;
+fs=16000;
+t=(0:L-1)/fs;
+f0=100; f1=110;
+x3= cos(2*pi*f0*t')+cos(2*pi*f1*t');
+whamming=hamming(L);
+x3w=x3.*whamming;
+X3w=fft(x3w,4*L);
+% vector de frecuencia
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+figure;
+subplot(311);
+plot(f,fftshift(abs(X3w)));xlim([70 ,140]);
+title('Suma de sinusoides 100,110Hz L=1024');xlabel('Frequency (Hz)');ylabel('Magnitud');
+% Respuesta: No se pueden detectar los dos picos espectrales (f0=100 y
+% f1=110) ya que no existe suficiente resolucion Af=fs/L=15.62Hz. La
+% separacion de los dos picos es 110-100=10 Hz mientras que la resolucion
+% es de 15.6 Hz.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%% C.ii) L=512,fs=16000,f0=100,f1=110,Af=fs/L=31.25Hz,Hamming
+L=512; 
+fs=16000;
+t=(0:L-1)/fs; 
+f0=100; f1=110; 
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t'); 
+whamming=hamming(L); 
+x3w=x3.*whamming;
+X3w=fft(x3w,4*L);  
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+subplot(312);
+plot(f,fftshift(abs(X3w)));xlim([70 ,140]);
+title('Suma de sinusoides 100,110Hz L=512');xlabel('Frequency (Hz)');ylabel('Magnitud');
+% Respuesta: No se pueden detectar los dos picos espectrales (f0=100 y
+% f1=110) ya que no existe suficiente resolucion Af=fs/L=31.25Hz. La
+% separacion de los dos picos es 110-100=10 Hz mientras que la resolucion
+% es de 31.25.6 Hz.   
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%% C.iii) L=2048,fs=16000,f0=100,f1=110,Af=fs/L=7.81Hz,Hamming
+L=2048; 
+fs=16000;
+t=(0:L-1)/fs; 
+f0=100; f1=110; 
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t'); 
+whamming=hamming(L); 
+x3w=x3.*whamming;
+X3w=fft(x3w,4*L); 
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+subplot(313);plot(f,fftshift(abs(X3w)));xlim([70 ,140]);
+title('Suma de sinusoides 100,110Hz L=2048');xlabel('Frequency (Hz)');ylabel('Magnitud');
+% Respuesta: Si se pueden detectar los dos picos espectrales (f0=100 y
+% f1=110) ya que existe suficiente resolucion Af=fs/L=7.81Hz. La
+% separacion de los dos picos es 110-100=10 Hz mientras que la resolucion
+% es de 7.81 Hz. 
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%                        CONCLUSION
+% Conclusion: Al aumentar el tamaño de la ventana (L) disminuye la anchura
+% del lobulo principal y por lo tanto mejora la resolucion (se pueden
+% detectar picos mas proximos).
+% IMPORTANTE: Para detectar los dos picos espectrales debe ocurrir que la 
+% resolucion debe ser menor que la separacion entre los picos espectrales.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%% C.iv) L=2048,fs=16000,f0=100,f1=110,Af=fs/L=7.81Hz,Hamming
+% Aumentar el tamaño de la señal de entrada concatenando ceros (zero
+% padding)
+L=2048; 
+t=(0:L-1)/fs; 
+f0=100; f1=110; 
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t'); 
+whamming=hamming(L); 
+x3w=x3.*whamming; 
+x3w=[x3w; zeros(2*L,1)];     % zero-padding (4096 ceros)
+X3w=fft(x3w,4*length(x3w)); 
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+hold on;
+plot(f,fftshift(abs(X3w)),'r');xlim([70 ,140]);
+title('Suma de sinusoides L=2048 + zero padding (4096)');
+xlabel('Frequency (Hz)');ylabel('Magnitud');
+% RESPUESTA: La nueva resolucion no ha variado del apartado anterior y sigue 
+% siendo Af=fs/L=7.81Hz ya que la longitud de muestras de informacion de usuario 
+% de x[n] sigue siendo la misma L=2048. Sin embargo, al anadir ceros se ha 
+% realizado una mejor interpolacion entre las muestras en frecuencia, es decir, 
+% se ha definido con mayor detalle los valores en frecuencia. Ahora la
+% separacion en muestras de frecuencia es Sep=fs/(3*L)=2.60 Hz.
+% Zero-padding permite obtener valores mas excatos de los picos en
+% frecuencia y de las amplitudes de los mismos.
+% IMPORTANTE: zero-padding NO AUMENTA LA RESOLUCION. La resolucion solo
+% depende del tipo y la longitud L de la ventana.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%% C.v) L=2048,fs=16000,f0=100,f1=?,Af=fs/L=7.81Hz,Hamming
+% Objetivo: modificar la frecuencia f1 manteniendo constante f0 para
+% determinar aproximadamente la resolucion del sistema (Hz), como aquella
+% separacion en frecuencia que permite distinguir dos picos (tonos).
+%REPLACE_WITH_DASH_DASH> Prueba 1: f1=108
+L=2048; 
+t=(0:L-1)/fs; 
+f0=100; f1=108; 
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t'); 
+whamming=hamming(L); x3w=x3.*whamming; 
+X3w=fft(x3w,4*L); 
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+figure;
+plot(f,fftshift(abs(X3w)),'b');
+
+%REPLACE_WITH_DASH_DASH> Prueba 2: f1=106
+L=2048; 
+t=(0:L-1)/fs; 
+f0=100; f1=106; 
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t'); 
+whamming=hamming(L); x3w=x3.*whamming; 
+X3w=fft(x3w,4*L); 
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+hold on;
+plot(f,fftshift(abs(X3w)),'r');
+
+%REPLACE_WITH_DASH_DASH> Prueba 3: f1=105
+L=2048; 
+t=(0:L-1)/fs; 
+f0=100; f1=105; 
+x3=cos(2*pi*f0*t')+cos(2*pi*f1*t'); 
+whamming=hamming(L); x3w=x3.*whamming; 
+X3w=fft(x3w,4*L); 
+f=-fs/2:fs/(length(X3w)-1):fs/2;
+hold on;
+plot(f,fftshift(abs(X3w)),'g');xlim([70 ,140]);
+title('Suma de sinusoides f0=100,f1=(108,106,105) y L=2048');
+xlabel('Frequency (Hz)');ylabel('Magnitud');
+legend('f_1-f_0=8Hz','f_1-f_0=6Hz','f_1-f_0=5Hz');
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%                 CONCLUSION
+% La resolucion maxima del sistema es de 106Hz-100Hz=6Hz. 
+% Minima separacion para detectar dos tonos. 
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
